@@ -1,13 +1,16 @@
 import { gql } from "@apollo/client";
 
-export const MEETING_ROOMS = gql`
+export const GET_MEETING_ROOMS = gql`
   query GetMeetingRooms {
     getMeetingRooms {
       meetingRooms {
         id
         name
         schedulingRules {
-          createdAt
+          startPeriod
+          endPeriod
+          startHour
+          endHour
         }
         reservations {
           id

@@ -6,19 +6,19 @@ import MeetingRoomCard from "./MeetingRoomCard";
 import { MeetingRoom } from "../../graphql/types";
 
 function MeetingRoomList() {
-  const { loading, error, data } = useQuery(queries.MEETING_ROOMS);
+  const { loading, error, data } = useQuery(queries.GET_MEETING_ROOMS);
 
-  if (loading) {
-    return (
-      <Container>
-        <CircularProgress />
-      </Container>
-    );
-  }
   if (error) {
     return (
       <Container>
-        <Typography>There was an error.</Typography>
+        <Typography>{error.message}</Typography>
+      </Container>
+    );
+  }
+  if (loading) {
+    return (
+      <Container>
+        <CircularProgress data-test-id="loader" />
       </Container>
     );
   }
@@ -26,7 +26,13 @@ function MeetingRoomList() {
   return (
     <Stack>
       {data.getMeetingRooms?.meetingRooms.map((room: MeetingRoom) => {
-        return <MeetingRoomCard room={room} key={room.id} />;
+        return (
+          <MeetingRoomCard
+            room={room}
+            key={room.id}
+            data-test-id="meeting-card"
+          />
+        );
       })}
     </Stack>
   );

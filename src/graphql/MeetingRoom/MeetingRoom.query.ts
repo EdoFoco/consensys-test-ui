@@ -6,15 +6,14 @@ export const GET_MEETING_ROOMS = gql`
       meetingRooms {
         id
         name
-        schedulingRules {
-          startPeriod
-          endPeriod
-          startHour
-          endHour
-        }
+        reservationIntervalHr
+        startTimeHr
+        endTimeHr
         reservations {
           id
           userId
+          startTimeHr
+          endTimeHr
         }
         createdAt
         updatedAt

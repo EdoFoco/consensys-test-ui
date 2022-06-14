@@ -1,4 +1,4 @@
-import { Layout } from "./containers";
+import { Layout } from "./views";
 
 function App() {
   return <Layout />;

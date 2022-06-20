@@ -1,0 +1,62 @@
+image: node:latest
+
+variables:
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  APP_NAME: $APP_NAME
+  CF_DISTRIBUTION_ID_STAGING: $CF_DISTRIBUTION_ID_STAGING
+  JWT_AUDIENCE_STAGING: $JWT_AUDIENCE_STAGING
+  JWT_JWKS_URL_STAGING: $JWT_JWKS_URL_STAGING
+  JWT_ISSUER_STAGING: $JWT_ISSUER_STAGING
+  
+stages:
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  cache:
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+      - build/
+      - infrastructure/
+
+# test:
+#   stage: test
+#   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+#   dependencies:
+#     - build
+#   script:
+#     - npm run test:cover
+#   artifacts:
+    when: always
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
+
+deploy:
+  stage: deploy
+  variables:
+    ENV: staging
+    CF_DISTRIBUTION_ID: ${CF_DISTRIBUTION_ID_STAGING}
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip gettext
+    - pip install awscli
+    - aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+    - aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+    - aws configure set region $AWS_DEFAULT_REGION
+    - aws --version
+  script:
+    - aws s3 cp build s3://${APP_NAME}-{ENV}/ --recursive
+    - aws cloudfront create-invalidation --distribution-id ${CF_DISTRIBUTION_ID} --paths "/*"

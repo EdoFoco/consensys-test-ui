@@ -12,6 +12,7 @@ export const GET_MEETING_ROOMS = gql`
         reservations {
           id
           userId
+          meetingRoomId
           startTimeHr
           endTimeHr
         }

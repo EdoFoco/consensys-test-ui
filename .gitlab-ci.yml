@@ -23,8 +23,6 @@ build:
     JWT_AUDIENCE: $JWT_AUDIENCE_STAGING
     JWT_DOMAIN: $JWT_DOMAIN_STAGING
     JWT_CLIENT_ID: $JWT_CLIENT_ID_STAGING
-  image:
-    name: docker:latest
   services:
     - docker:19-dind
   before_script:

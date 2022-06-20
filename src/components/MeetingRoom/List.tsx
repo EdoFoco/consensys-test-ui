@@ -1,29 +1,51 @@
 import React from "react";
-import { Stack } from "@mui/material";
-import MeetingRoomCard from "./Card";
+import { List, Divider } from "@mui/material";
+import MeetingRoomCard from "./ListItem";
 import { MeetingRoomWithSlots } from "../../types";
+import { User } from "../../graphql/User";
 
 interface MeetingRoomListProps {
   rooms?: MeetingRoomWithSlots[];
+  currentUser: User;
+  createReservation: Function;
+  deleteReservation: Function;
+  isLoading: Boolean;
   style?: React.CSSProperties;
 }
 
 function MeetingRoomList(props: MeetingRoomListProps) {
-  const { rooms, style } = props;
+  const {
+    rooms,
+    currentUser,
+    createReservation,
+    deleteReservation,
+    isLoading,
+    style,
+  } = props;
 
   return (
-    <Stack>
+    <List
+      style={style}
+      sx={{ width: "100%", maxWidth: "800px", bgcolor: "background.paper" }}
+    >
       {rooms?.map((room: MeetingRoomWithSlots) => {
         return (
-          <MeetingRoomCard
-            room={room}
-            key={room.id}
-            style={{ marginBottom: "1em" }}
-            data-test-id="meeting-card"
-          />
+          <div key={room.name}>
+            <MeetingRoomCard
+              key={room.id}
+              room={room}
+              style={{ marginTop: "0.5em" }}
+              data-test-id="meeting-card"
+              currentUser={currentUser}
+              isLoading={isLoading}
+              createReservation={createReservation}
+              deleteReservation={deleteReservation}
+            />
+            <Divider component="li" />
+          </div>
         );
       })}
-    </Stack>
+    </List>
   );
 }
 

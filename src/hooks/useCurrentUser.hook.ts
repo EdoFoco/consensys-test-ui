@@ -1,8 +1,16 @@
-import { useQuery } from "@apollo/client";
+import { ApolloError, useQuery } from "@apollo/client";
 import { GET_OR_CREATE_USER, GetCurrentUserResponse } from "../graphql/User";
 import { Reservation } from "../graphql/Reservation";
+import { User } from "../graphql/User";
 
-export const useCurrentReservation = () => {
+export interface UseCurrentUserResult {
+  userLoading: boolean;
+  userError: ApolloError | undefined;
+  user: User | undefined;
+  reservation: Reservation | undefined;
+}
+
+export const useCurrentUser = (): UseCurrentUserResult => {
   const { loading, error, data } =
     useQuery<GetCurrentUserResponse>(GET_OR_CREATE_USER);
 
@@ -15,8 +23,9 @@ export const useCurrentReservation = () => {
   }
 
   return {
-    reservationLoading: loading,
-    reservationError: error,
+    userLoading: loading,
+    userError: error,
+    user: data?.getCurrentUser.user,
     reservation,
   };
 };

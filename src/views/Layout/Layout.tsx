@@ -14,7 +14,7 @@ function Layout() {
         loginWithRedirect={loginWithRedirect}
         logout={logout}
       />
-      <Container>
+      <Container style={{ marginTop: "2em" }}>
         {isAuthenticated ? (
           <Home />
         ) : (

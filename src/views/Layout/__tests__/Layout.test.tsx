@@ -7,7 +7,6 @@ import Layout from "../Layout";
 
 const user = {
   email: "johndoe@me.com",
-  email_verified: true,
   sub: "google-oauth2|12345678901234",
 };
 

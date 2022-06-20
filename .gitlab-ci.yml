@@ -5,11 +5,12 @@ variables:
   AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   APP_NAME: $APP_NAME
+  API_URL_STAGING: ${API_URL_STAGING}
   CF_DISTRIBUTION_ID_STAGING: $CF_DISTRIBUTION_ID_STAGING
   JWT_AUDIENCE_STAGING: $JWT_AUDIENCE_STAGING
-  JWT_JWKS_URL_STAGING: $JWT_JWKS_URL_STAGING
-  JWT_ISSUER_STAGING: $JWT_ISSUER_STAGING
-  
+  JWT_DOMAIN_STAGING: $JWT_DOMAIN_STAGING
+  JWT_CLIENT_ID_STAGING: $JWT_CLIENT_ID_STAGING
+
 stages:
   - build
   - test
@@ -17,6 +18,19 @@ stages:
 
 build:
   stage: build
+  variables:
+    API_URL: $API_URL_STAGING
+    JWT_AUDIENCE: $JWT_AUDIENCE_STAGING
+    JWT_DOMAIN: $JWT_DOMAIN_STAGING
+    JWT_CLIENT_ID: $JWT_CLIENT_ID_STAGING
+  image:
+    name: docker:latest
+  services:
+    - docker:19-dind
+  before_script:
+    - apk add --no-cache curl jq python3 py3-pip gettext
+    - envsubst < .env.example > .env
+    - cat .env
   script:
     - npm install
     - npm run build
@@ -39,17 +53,21 @@ build:
 #   script:
 #     - npm run test:cover
 #   artifacts:
-    when: always
-    reports:
-      coverage_report:
-        coverage_format: cobertura
-        path: coverage/cobertura-coverage.xml
+# when: always
+# reports:
+#   coverage_report:
+#     coverage_format: cobertura
+#     path: coverage/cobertura-coverage.xml
 
 deploy:
   stage: deploy
   variables:
     ENV: staging
     CF_DISTRIBUTION_ID: ${CF_DISTRIBUTION_ID_STAGING}
+  image:
+    name: docker:latest
+  services:
+    - docker:19-dind
   before_script:
     - apk add --no-cache curl jq python3 py3-pip gettext
     - pip install awscli

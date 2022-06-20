@@ -1,32 +1,56 @@
 import React from "react";
-import { CircularProgress, Container, Typography } from "@mui/material";
+import { Alert, CircularProgress, Container, Typography } from "@mui/material";
 import { MeetingRoomList } from "../../components/MeetingRoom";
-import CurrentReservationCard from "../../components/CurrentReservation/Card";
-import { useMeetingRoomsData } from "../../hooks/useMeetingRoomsData.hook";
-import { useCurrentReservation } from "../../hooks/useCurrentReservation.hook";
+import { useMeetingRoomsData } from "../../hooks/useMeetingRooms.hook";
+import { useCurrentUser } from "../../hooks/useCurrentUser.hook";
+import {
+  useCreateReservation,
+  useDeleteReservation,
+} from "../../hooks/useReservation.hook";
 
 function Home() {
   const { roomsLoading, roomsError, rooms } = useMeetingRoomsData();
-  const { reservationLoading, reservationError, reservation } =
-    useCurrentReservation();
+  const { userLoading, userError, user } = useCurrentUser();
+  const { createReservation, creating, createError } = useCreateReservation();
+  const { deleteReservation, deleting, deleteError } = useDeleteReservation();
 
-  if (roomsLoading || reservationLoading) return <CircularProgress />;
-  if (roomsError || reservationError)
-    return (
-      <Typography>
-        {roomsError
-          ? "Error fetching rooms data"
-          : "Error fetching reservations"}
-      </Typography>
-    );
+  const [errorMessage, setErrorMessage] = React.useState<string | undefined>(
+    undefined
+  );
+
+  React.useEffect(() => {
+    if (roomsError || userError || createError || deleteError) {
+      if (roomsError) setErrorMessage(roomsError.message);
+      if (userError) setErrorMessage(userError.message);
+      if (createError) setErrorMessage(createError.message);
+      if (deleteError) setErrorMessage(deleteError.message);
+    }
+  }, [roomsError, userError, createError, deleteError, setErrorMessage]);
+
+  if (roomsLoading || userLoading) return <CircularProgress />;
 
   return (
     <Container>
-      <CurrentReservationCard
-        reservation={reservation}
-        style={{ marginBottom: "1em" }}
-      />
-      <MeetingRoomList rooms={rooms} />
+      {errorMessage ? (
+        <Alert
+          severity="error"
+          onClose={() => {
+            setErrorMessage(undefined);
+          }}
+        >
+          <Typography>{errorMessage}</Typography>
+        </Alert>
+      ) : null}
+
+      {user && (
+        <MeetingRoomList
+          rooms={rooms}
+          currentUser={user!}
+          createReservation={createReservation}
+          deleteReservation={deleteReservation}
+          isLoading={creating || deleting}
+        />
+      )}
     </Container>
   );
 }

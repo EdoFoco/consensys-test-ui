@@ -3,16 +3,18 @@ import { Reservation } from "../graphql/Reservation";
 
 export class ReservationSlot implements Reservation {
   id: string | undefined;
-  roomId: string | undefined;
-  room: MeetingRoom | undefined;
+  userId: string | undefined;
+  meetingRoomId: string | undefined;
+  meetingRoom: MeetingRoom | undefined;
   startTimeHr: number | undefined;
   endTimeHr: number | undefined;
   booked: boolean | undefined;
+  isOwner: boolean | undefined;
 
   constructor(reservation: Reservation, booked?: boolean) {
     this.id = reservation.id;
-    this.roomId = reservation.roomId;
-    this.room = reservation.room;
+    this.userId = reservation.userId;
+    this.meetingRoom = reservation.meetingRoom;
     this.startTimeHr = reservation.startTimeHr;
     this.endTimeHr = reservation.endTimeHr;
     this.booked = booked ?? false;

@@ -9,7 +9,7 @@ export class MeetingRoomWithSlots implements MeetingRoom {
   startTimeHr: number;
   endTimeHr: number;
   reservations: Reservation[];
-  slots: Record<string, ReservationSlot>;
+  slots: ReservationSlot[];
   createdAt: string;
   updatedAt: string;
   fullyBooked: boolean;
@@ -21,7 +21,7 @@ export class MeetingRoomWithSlots implements MeetingRoom {
     this.startTimeHr = meetingRoom.startTimeHr;
     this.endTimeHr = meetingRoom.endTimeHr;
     this.reservations = meetingRoom.reservations;
-    this.slots = {};
+    this.slots = [];
     this.createdAt = meetingRoom.createdAt;
     this.updatedAt = meetingRoom.updatedAt;
     this.fullyBooked = false;

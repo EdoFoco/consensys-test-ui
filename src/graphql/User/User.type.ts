@@ -1,4 +1,3 @@
-import { GraphQLError } from "graphql";
 import { Reservation } from "../Reservation/Reservation.type";
 
 export interface User {
@@ -11,5 +10,4 @@ export interface GetCurrentUserResponse {
   getCurrentUser: {
     user: User;
   };
-  error: GraphQLError;
 }

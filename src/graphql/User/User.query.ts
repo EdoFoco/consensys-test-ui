@@ -7,6 +7,7 @@ export const GET_OR_CREATE_USER = gql`
         id
         reservations {
           id
+          userId
           meetingRoomId
           startTimeHr
           endTimeHr

@@ -3,13 +3,21 @@ import {
   GetMeetingRoomsResponse,
   GET_MEETING_ROOMS,
   MeetingRoom,
+  RESET_MEETING_ROOMS,
 } from "../graphql/MeetingRoom";
-import { useQuery, ApolloError } from "@apollo/client";
+import { GET_OR_CREATE_USER } from "../graphql/User";
+import { useQuery, ApolloError, useMutation } from "@apollo/client";
 
 export interface UseMeetingRoomsResult {
   roomsLoading: boolean;
   roomsError: ApolloError | undefined;
   rooms: MeetingRoomWithSlots[] | undefined;
+}
+
+export interface UseResetMeetingRoomsResult {
+  resetMeetingRooms: Function;
+  resetLoading: boolean;
+  resetError: ApolloError | undefined;
 }
 
 const isRoomFullyBooked = (room: MeetingRoom): boolean => {
@@ -67,5 +75,23 @@ export const useMeetingRoomsData = (): UseMeetingRoomsResult => {
     roomsLoading: loading,
     roomsError: error,
     rooms,
+  };
+};
+
+export const useResetMeetingRooms = (): UseResetMeetingRoomsResult => {
+  const [resetMeetingRooms, { loading, error }] = useMutation<void>(
+    RESET_MEETING_ROOMS,
+    {
+      refetchQueries: [
+        { query: GET_MEETING_ROOMS },
+        { query: GET_OR_CREATE_USER },
+      ],
+    }
+  );
+
+  return {
+    resetMeetingRooms,
+    resetLoading: loading,
+    resetError: error,
   };
 };

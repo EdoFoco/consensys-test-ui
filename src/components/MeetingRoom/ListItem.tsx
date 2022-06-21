@@ -37,8 +37,10 @@ function MeetingRoomCard(props: MeetingRoomCardProps) {
         <Typography style={{ marginTop: "1em" }}>Reserve a slot</Typography>
         <Box style={{ marginBottom: "2em", marginTop: "1em" }}>
           {sortedSlots.map((s) => {
+            const key = `${s.startTimeHr}:00-${s.endTimeHr}:00`;
             return (
               <SlotButton
+                key={key}
                 data-test-id="slot-button"
                 slot={s}
                 room={room}

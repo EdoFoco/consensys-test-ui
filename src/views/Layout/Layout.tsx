@@ -12,7 +12,9 @@ function Layout() {
       <NavBar
         isAuthenticated={isAuthenticated}
         loginWithRedirect={loginWithRedirect}
-        logout={logout}
+        logout={() =>
+          logout({ returnTo: process.env.REACT_APP_JWT_LOGOUT_URL })
+        }
       />
       <Container style={{ marginTop: "2em" }}>
         {isAuthenticated ? (

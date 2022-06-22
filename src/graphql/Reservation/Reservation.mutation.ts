@@ -9,8 +9,6 @@ export const CREATE_RESERVATION = gql`
         meetingRoomId
         startTimeHr
         endTimeHr
-        createdAt
-        updatedAt
       }
     }
   }

@@ -32,10 +32,9 @@ function MeetingRoomList(props: MeetingRoomListProps) {
         return (
           <div key={room.name}>
             <MeetingRoomCard
-              key={room.id}
               room={room}
               style={{ marginTop: "0.5em" }}
-              data-test-id="meeting-card"
+              data-test-id="meeting-room-card"
               currentUser={currentUser}
               isLoading={isLoading}
               createReservation={createReservation}

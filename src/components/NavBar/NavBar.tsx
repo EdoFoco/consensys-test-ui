@@ -20,11 +20,19 @@ function NavBar(props: NavbarProps) {
           Meeting Rooms
         </Typography>
         {isAuthenticated ? (
-          <Button color="inherit" onClick={() => logout()}>
+          <Button
+            data-test-id="logout-button"
+            color="inherit"
+            onClick={() => logout()}
+          >
             Logout
           </Button>
         ) : (
-          <Button color="inherit" onClick={() => loginWithRedirect()}>
+          <Button
+            data-test-id="login-button"
+            color="inherit"
+            onClick={() => loginWithRedirect()}
+          >
             Login
           </Button>
         )}

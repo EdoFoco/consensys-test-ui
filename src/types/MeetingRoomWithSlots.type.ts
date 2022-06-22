@@ -10,9 +10,6 @@ export class MeetingRoomWithSlots implements MeetingRoom {
   endTimeHr: number;
   reservations: Reservation[];
   slots: ReservationSlot[];
-  createdAt: string;
-  updatedAt: string;
-  fullyBooked: boolean;
 
   constructor(meetingRoom: MeetingRoom) {
     this.id = meetingRoom.id;
@@ -22,8 +19,5 @@ export class MeetingRoomWithSlots implements MeetingRoom {
     this.endTimeHr = meetingRoom.endTimeHr;
     this.reservations = meetingRoom.reservations;
     this.slots = [];
-    this.createdAt = meetingRoom.createdAt;
-    this.updatedAt = meetingRoom.updatedAt;
-    this.fullyBooked = false;
   }
 }

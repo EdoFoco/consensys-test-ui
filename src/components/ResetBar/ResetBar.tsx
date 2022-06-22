@@ -3,17 +3,17 @@ import React from "react";
 
 interface ResetBarProps {
   resetMeetingRooms: Function;
-  loading: boolean;
 }
 
 function ResetBar(props: ResetBarProps) {
-  const { resetMeetingRooms, loading } = props;
+  const { resetMeetingRooms } = props;
 
   return (
     <Alert
       severity="info"
       action={
         <Button
+          data-test-id="reset-button"
           color="inherit"
           size="small"
           onClick={() => resetMeetingRooms()}

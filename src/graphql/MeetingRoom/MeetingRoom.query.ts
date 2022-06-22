@@ -16,8 +16,6 @@ export const GET_MEETING_ROOMS = gql`
           startTimeHr
           endTimeHr
         }
-        createdAt
-        updatedAt
       }
     }
   }

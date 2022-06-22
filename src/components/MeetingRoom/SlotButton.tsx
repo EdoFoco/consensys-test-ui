@@ -61,10 +61,16 @@ function SlotButton(props: SlotButtonProps) {
   const userReserved = currentUser.id === slot.userId;
   const isDisabled = isSlotDisabled(currentUser.id, slot);
   const key = `${slot.startTimeHr}:00-${slot.endTimeHr}:00`;
+  const status = isDisabled
+    ? "disabled"
+    : userReserved
+    ? "user-reserved"
+    : "free";
 
   return (
     <Button
       key={key}
+      data-test-id={`button-${status}`}
       variant={userReserved ? "contained" : "outlined"}
       color={userReserved ? "success" : undefined}
       style={{ marginRight: "0.5em", marginBottom: "0.5em" }}

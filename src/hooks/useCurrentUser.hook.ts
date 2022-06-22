@@ -15,6 +15,7 @@ export const useCurrentUser = (): UseCurrentUserResult => {
     useQuery<GetCurrentUserResponse>(GET_OR_CREATE_USER);
 
   let reservation: Reservation | undefined = undefined;
+  
   if (
     data?.getCurrentUser.user.reservations &&
     data?.getCurrentUser.user.reservations.length > 0

@@ -41,6 +41,7 @@ build:
     when: on_success
     paths:
       - build/
+      - node_modules/
 
 test:
   stage: test

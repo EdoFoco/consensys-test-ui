@@ -1,6 +1,6 @@
 import React from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Alert, CircularProgress, Container } from "@mui/material";
+import { CircularProgress, Container } from "@mui/material";
 import { NavBar } from "../../components/NavBar";
 import Home from "../Home/Home";
 import { ResetBar } from "../../components/ResetBar";
@@ -9,8 +9,7 @@ import Unauthenticated from "../Unauthenticated/Unauthenticated";
 
 function Layout() {
   const { isLoading, isAuthenticated, loginWithRedirect, logout } = useAuth0();
-  const { resetMeetingRooms, resetLoading, resetError } =
-    useResetMeetingRooms();
+  const { resetMeetingRooms } = useResetMeetingRooms();
 
   return (
     <>
@@ -21,12 +20,7 @@ function Layout() {
           logout({ returnTo: process.env.REACT_APP_JWT_LOGOUT_URL })
         }
       />
-      {isAuthenticated && (
-        <ResetBar
-          resetMeetingRooms={resetMeetingRooms}
-          loading={resetLoading}
-        />
-      )}
+      {isAuthenticated && <ResetBar resetMeetingRooms={resetMeetingRooms} />}
       <Container style={{ marginTop: "2em" }}>
         {isAuthenticated ? (
           <Home />

@@ -50,11 +50,11 @@ test:
   script:
     - npm test -- --coverage --watchAll=false --ci --reporters=default --coverageReporters=cobertura
   artifacts:
-when: always
-reports:
-  coverage_report:
-    coverage_format: cobertura
-    path: coverage/cobertura-coverage.xml
+    when: always
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
 
 deploy:
   stage: deploy

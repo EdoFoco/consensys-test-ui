@@ -1,4 +1,4 @@
-import { MeetingRoomWithSlots, ReservationSlot } from "../types";
+import { MeetingRoomWithSlots } from "../types";
 import {
   GetMeetingRoomsResponse,
   GET_MEETING_ROOMS,

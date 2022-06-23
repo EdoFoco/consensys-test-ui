@@ -1,4 +1,4 @@
-import { Alert, Typography, Button, AlertTitle } from "@mui/material";
+import { Alert, Typography, Button } from "@mui/material";
 import React from "react";
 
 interface ResetBarProps {

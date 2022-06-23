@@ -26,7 +26,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test:cover": "react-scripts test -- -c=jest.config.ts --coverage --ci --reporters=default --coverageReporters=cobertura",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

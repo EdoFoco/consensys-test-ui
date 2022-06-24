@@ -4,6 +4,8 @@ import { wait } from "@testing-library/user-event/dist/utils";
 import TestRenderer from "react-test-renderer";
 import { act } from "react-dom/test-utils";
 import Layout from "../Layout";
+import { useResetMeetingRooms } from "../../../hooks/useMeetingRooms.hook";
+import { NavBar } from "../../../components/NavBar";
 
 const user = {
   email: "johndoe@me.com",
@@ -12,37 +14,45 @@ const user = {
 
 // Setup mocks
 jest.mock("@auth0/auth0-react");
+jest.mock("../../../hooks/useMeetingRooms.hook");
 jest.mock("../../Home/Home", () => () => <div data-test-id="home">Home</div>);
-jest.mock("../../../components/Navbar/Navbar", () => () => (
-  <div data-test-id="navbar">NavBar</div>
-));
+// jest.mock("../../../components/Navbar", () => () => (
+//   <div data-test-id="navbar">NavBar</div>
+// ));
 
 const mockedUseAuth0 = jest.mocked(useAuth0, true);
+const mockedResetMeetingRooms = jest.mocked(useResetMeetingRooms, true);
 
 describe("Layout Container", () => {
   it("Should display navbar and unauthenticated view", async () => {
-    // mockedUseAuth0.mockReturnValue({
-    //   isAuthenticated: false,
-    //   user,
-    //   isLoading: false,
-    //   logout: jest.fn(),
-    //   loginWithRedirect: jest.fn(),
-    //   getAccessTokenSilently: jest.fn(),
-    //   getIdTokenClaims: jest.fn(),
-    //   loginWithPopup: jest.fn(),
-    //   buildAuthorizeUrl: jest.fn(),
-    //   buildLogoutUrl: jest.fn(),
-    //   getAccessTokenWithPopup: jest.fn(),
-    //   handleRedirectCallback: jest.fn(),
-    // });
-    // const component = TestRenderer.create(<Layout />);
-    // await act(async () => await wait(100));
-    // expect(
-    //   component.root.findByProps({ "data-test-id": "navbar" })
-    // ).not.toBeNull();
-    // expect(
-    //   component.root.findByProps({ "data-test-id": "unauthorized-view" })
-    // ).not.toBeNull();
+    mockedUseAuth0.mockReturnValue({
+      isAuthenticated: false,
+      user,
+      isLoading: false,
+      logout: jest.fn(),
+      loginWithRedirect: jest.fn(),
+      getAccessTokenSilently: jest.fn(),
+      getIdTokenClaims: jest.fn(),
+      loginWithPopup: jest.fn(),
+      buildAuthorizeUrl: jest.fn(),
+      buildLogoutUrl: jest.fn(),
+      getAccessTokenWithPopup: jest.fn(),
+      handleRedirectCallback: jest.fn(),
+    });
+    mockedResetMeetingRooms.mockReturnValue({
+      resetMeetingRooms: () => {},
+      resetLoading: false,
+      resetError: undefined,
+    });
+
+    const component = TestRenderer.create(<Layout />);
+    await act(async () => await wait(100));
+    expect(
+      component.root.findByProps({ "data-test-id": "navbar" })
+    ).not.toBeNull();
+    expect(
+      component.root.findByProps({ "data-test-id": "unauthorized-view" })
+    ).not.toBeNull();
   });
 
   it("Should display navbar and a loader while authenticating", async () => {

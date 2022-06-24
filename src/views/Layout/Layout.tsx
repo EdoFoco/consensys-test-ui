@@ -14,6 +14,7 @@ function Layout() {
   return (
     <>
       <NavBar
+        data-test-id="navbar"
         isAuthenticated={isAuthenticated}
         loginWithRedirect={loginWithRedirect}
         logout={() =>

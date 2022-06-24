@@ -21,16 +21,21 @@ function Layout() {
           logout({ returnTo: process.env.REACT_APP_JWT_LOGOUT_URL })
         }
       />
-      {isAuthenticated && <ResetBar resetMeetingRooms={resetMeetingRooms} />}
+      {isAuthenticated && (
+        <ResetBar
+          data-test-id="resetbar"
+          resetMeetingRooms={resetMeetingRooms}
+        />
+      )}
       <Container style={{ marginTop: "2em" }}>
         {isAuthenticated ? (
-          <Home />
+          <Home data-test-id="home-view" />
         ) : (
           <>
             {isLoading ? (
               <CircularProgress data-test-id="loader" />
             ) : (
-              <Unauthenticated data-test-id="unauthorized-view" />
+              <Unauthenticated data-test-id="unauthenticated-view" />
             )}
           </>
         )}

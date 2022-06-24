@@ -51,57 +51,67 @@ describe("Layout Container", () => {
       component.root.findByProps({ "data-test-id": "navbar" })
     ).not.toBeNull();
     expect(
-      component.root.findByProps({ "data-test-id": "unauthorized-view" })
+      component.root.findByProps({ "data-test-id": "unauthenticated-view" })
     ).not.toBeNull();
   });
 
   it("Should display navbar and a loader while authenticating", async () => {
-    // mockedUseAuth0.mockReturnValue({
-    //   isAuthenticated: false,
-    //   user,
-    //   isLoading: true,
-    //   logout: jest.fn(),
-    //   loginWithRedirect: jest.fn(),
-    //   getAccessTokenSilently: jest.fn(),
-    //   getIdTokenClaims: jest.fn(),
-    //   loginWithPopup: jest.fn(),
-    //   buildAuthorizeUrl: jest.fn(),
-    //   buildLogoutUrl: jest.fn(),
-    //   getAccessTokenWithPopup: jest.fn(),
-    //   handleRedirectCallback: jest.fn(),
-    // });
-    // const component = TestRenderer.create(<Layout />);
-    // await act(async () => await wait(100));
-    // expect(
-    //   component.root.findByProps({ "data-test-id": "navbar" })
-    // ).not.toBeNull();
-    // expect(
-    //   component.root.findByProps({ "data-test-id": "loader" })
-    // ).not.toBeNull();
+    mockedUseAuth0.mockReturnValue({
+      isAuthenticated: false,
+      user,
+      isLoading: true,
+      logout: jest.fn(),
+      loginWithRedirect: jest.fn(),
+      getAccessTokenSilently: jest.fn(),
+      getIdTokenClaims: jest.fn(),
+      loginWithPopup: jest.fn(),
+      buildAuthorizeUrl: jest.fn(),
+      buildLogoutUrl: jest.fn(),
+      getAccessTokenWithPopup: jest.fn(),
+      handleRedirectCallback: jest.fn(),
+    });
+    mockedResetMeetingRooms.mockReturnValue({
+      resetMeetingRooms: () => {},
+      resetLoading: false,
+      resetError: undefined,
+    });
+    const component = TestRenderer.create(<Layout />);
+    await act(async () => await wait(100));
+    expect(
+      component.root.findByProps({ "data-test-id": "navbar" })
+    ).not.toBeNull();
+    expect(
+      component.root.findByProps({ "data-test-id": "loader" })
+    ).not.toBeNull();
   });
 
   it("Should display the home screen if authenticated", async () => {
-    // mockedUseAuth0.mockReturnValue({
-    //   isAuthenticated: true,
-    //   user,
-    //   isLoading: false,
-    //   logout: jest.fn(),
-    //   loginWithRedirect: jest.fn(),
-    //   getAccessTokenSilently: jest.fn(),
-    //   getIdTokenClaims: jest.fn(),
-    //   loginWithPopup: jest.fn(),
-    //   buildAuthorizeUrl: jest.fn(),
-    //   buildLogoutUrl: jest.fn(),
-    //   getAccessTokenWithPopup: jest.fn(),
-    //   handleRedirectCallback: jest.fn(),
-    // });
-    // const component = TestRenderer.create(<Layout />);
-    // await act(async () => await wait(100));
-    // expect(
-    //   component.root.findByProps({ "data-test-id": "navbar" })
-    // ).not.toBeNull();
-    // expect(
-    //   component.root.findByProps({ "data-test-id": "home" })
-    // ).not.toBeNull();
+    mockedUseAuth0.mockReturnValue({
+      isAuthenticated: true,
+      user,
+      isLoading: false,
+      logout: jest.fn(),
+      loginWithRedirect: jest.fn(),
+      getAccessTokenSilently: jest.fn(),
+      getIdTokenClaims: jest.fn(),
+      loginWithPopup: jest.fn(),
+      buildAuthorizeUrl: jest.fn(),
+      buildLogoutUrl: jest.fn(),
+      getAccessTokenWithPopup: jest.fn(),
+      handleRedirectCallback: jest.fn(),
+    });
+    mockedResetMeetingRooms.mockReturnValue({
+      resetMeetingRooms: () => {},
+      resetLoading: false,
+      resetError: undefined,
+    });
+    const component = TestRenderer.create(<Layout />);
+    await act(async () => await wait(100));
+    expect(
+      component.root.findByProps({ "data-test-id": "navbar" })
+    ).not.toBeNull();
+    expect(
+      component.root.findByProps({ "data-test-id": "home" })
+    ).not.toBeNull();
   });
 });

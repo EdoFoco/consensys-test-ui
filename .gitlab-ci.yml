@@ -41,20 +41,22 @@ build:
     when: on_success
     paths:
       - build/
+      - node_modules/
+      - src/
 
-# test:
-#   stage: test
-#   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
-#   dependencies:
-#     - build
-#   script:
-#     - npm run test:cover
-#   artifacts:
-# when: always
-# reports:
-#   coverage_report:
-#     coverage_format: cobertura
-#     path: coverage/cobertura-coverage.xml
+test:
+  stage: test
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  dependencies:
+    - build
+  script:
+    - npm test -- --coverage --watchAll=false --ci --reporters=default --coverageReporters=cobertura
+  artifacts:
+    when: always
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage/cobertura-coverage.xml
 
 deploy:
   stage: deploy

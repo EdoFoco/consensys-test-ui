@@ -7,8 +7,6 @@ export interface MeetingRoom {
   startTimeHr: number;
   endTimeHr: number;
   reservations: Reservation[];
-  createdAt: string;
-  updatedAt: string;
 }
 
 export interface GetMeetingRoomsResponse {

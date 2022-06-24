@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, CircularProgress, Container, Typography } from "@mui/material";
 import { MeetingRoomList } from "../../components/MeetingRoom";
-import { useMeetingRoomsData } from "../../hooks/useMeetingRooms.hook";
+import { useMeetingRooms } from "../../hooks/useMeetingRooms.hook";
 import { useCurrentUser } from "../../hooks/useCurrentUser.hook";
 import {
   useCreateReservation,
@@ -9,7 +9,7 @@ import {
 } from "../../hooks/useReservation.hook";
 
 function Home() {
-  const { roomsLoading, roomsError, rooms } = useMeetingRoomsData();
+  const { roomsLoading, roomsError, rooms } = useMeetingRooms();
   const { userLoading, userError, user } = useCurrentUser();
   const { createReservation, creating, createError } = useCreateReservation();
   const { deleteReservation, deleting, deleteError } = useDeleteReservation();

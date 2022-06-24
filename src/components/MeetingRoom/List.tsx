@@ -3,12 +3,13 @@ import { List, Divider } from "@mui/material";
 import MeetingRoomCard from "./ListItem";
 import { MeetingRoomWithSlots } from "../../types";
 import { User } from "../../graphql/User";
+import { CreateReservationResponse } from "../../graphql/Reservation";
 
 interface MeetingRoomListProps {
   rooms?: MeetingRoomWithSlots[];
   currentUser: User;
-  createReservation: Function;
-  deleteReservation: Function;
+  createReservation(): CreateReservationResponse;
+  deleteReservation(): void;
   isLoading: Boolean;
   style?: React.CSSProperties;
 }

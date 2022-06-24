@@ -9,7 +9,7 @@ export class ReservationSlot implements Reservation {
   startTimeHr: number | undefined;
   endTimeHr: number | undefined;
 
-  constructor(reservation: Reservation, booked?: boolean) {
+  constructor(reservation: Reservation) {
     this.id = reservation.id;
     this.userId = reservation.userId;
     this.meetingRoom = reservation.meetingRoom;

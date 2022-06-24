@@ -9,11 +9,11 @@ describe("mapToMeetingRoomsWithSlots", () => {
     expect(result?.length).toBe(2);
     if (!result) {
       assert(false);
-    } else {
-      expect(result[0].reservations.length).toBe(1);
-      expect(result[0].slots.length).toBe(2);
-      expect(result[0].slots.filter((s) => s.userId).length).toBe(1);
-      expect(result[0].slots.filter((s) => !s.userId).length).toBe(1);
     }
+    const res = result ?? [];
+    expect(res[0].reservations.length).toBe(1);
+    expect(res[0].slots.length).toBe(2);
+    expect(res[0].slots.filter((s) => s.userId).length).toBe(1);
+    expect(res[0].slots.filter((s) => !s.userId).length).toBe(1);
   });
 });

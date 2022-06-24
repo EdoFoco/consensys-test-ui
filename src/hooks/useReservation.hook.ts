@@ -1,18 +1,18 @@
-import { ApolloError, useMutation } from "@apollo/client";
-import { Reservation } from "../graphql/Reservation";
+import { ApolloError, FetchResult, useMutation } from "@apollo/client";
+import { CreateReservationResponse, Reservation } from "../graphql/Reservation";
 import { CREATE_RESERVATION, DELETE_RESERVATION } from "../graphql/Reservation";
 import { GET_MEETING_ROOMS } from "../graphql/MeetingRoom";
 import { GET_OR_CREATE_USER } from "../graphql/User";
 
 export interface useCreateReservationResult {
-  createReservation: Function;
+  createReservation(): Promise<FetchResult<CreateReservationResponse>>;
   creating: boolean;
   createError: ApolloError | undefined;
   reservation: Reservation | undefined;
 }
 
 export interface UseDeleteReservationResult {
-  deleteReservation: Function;
+  deleteReservation(): Promise<FetchResult<void>>;
   deleting: boolean;
   deleteError: ApolloError | undefined;
 }

@@ -5,12 +5,7 @@ import {
   RESET_MEETING_ROOMS,
 } from "../graphql/MeetingRoom";
 import { GET_OR_CREATE_USER } from "../graphql/User";
-import {
-  useQuery,
-  ApolloError,
-  useMutation,
-  FetchResult,
-} from "@apollo/client";
+import { useQuery, ApolloError, useMutation } from "@apollo/client";
 import { mapToMeetingRoomSlots } from "../utils/meetingRooms";
 
 export interface UseMeetingRoomsResult {
@@ -20,7 +15,7 @@ export interface UseMeetingRoomsResult {
 }
 
 export interface UseResetMeetingRoomsResult {
-  resetMeetingRooms: Promise<FetchResult<void>>;
+  resetMeetingRooms: Function;
   resetLoading: boolean;
   resetError: ApolloError | undefined;
 }

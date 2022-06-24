@@ -9,7 +9,7 @@ interface MeetingRoomCardProps {
   currentUser: User;
   createReservation: Function;
   deleteReservation: Function;
-  isLoading: Boolean;
+  isLoading: boolean;
   style?: React.CSSProperties;
 }
 

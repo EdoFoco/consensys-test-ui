@@ -8,7 +8,7 @@ interface SlotButtonProps {
   currentUser: User;
   createReservation: Function;
   deleteReservation: Function;
-  isLoading: Boolean;
+  isLoading: boolean;
   slot: ReservationSlot;
 }
 
@@ -32,7 +32,7 @@ function SlotButton(props: SlotButtonProps) {
   const handleClick = (currentUserId: string, slot: ReservationSlot): void => {
     if (slot.userId === currentUserId) {
       setIsExecutingAction(true);
-      return deleteReservation({ variables: { reservationId: slot.id! } });
+      return deleteReservation({ variables: { reservationId: slot.id } });
     }
     if (!slot.userId) {
       setIsExecutingAction(true);

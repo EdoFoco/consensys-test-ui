@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
 interface NavbarProps {
-  isAuthenticated: Boolean;
+  isAuthenticated: boolean;
   loginWithRedirect: Function;
   logout: Function;
 }

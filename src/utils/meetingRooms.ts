@@ -14,10 +14,7 @@ export const mapToMeetingRoomSlots = (
       // create a slot for each reservation and add it to the room
       room.reservations.forEach((r) => {
         const key = `${r.startTimeHr}:00-${r.endTimeHr}:00`;
-        const slot = new ReservationSlot(
-          { ...r, meetingRoomId: room.id },
-          true
-        );
+        const slot = new ReservationSlot({ ...r, meetingRoomId: room.id });
         roomWithSlot.slots.push(slot);
         processedSlots[key] = slot;
       });

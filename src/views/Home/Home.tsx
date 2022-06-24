@@ -45,7 +45,7 @@ function Home() {
       {user && (
         <MeetingRoomList
           rooms={rooms}
-          currentUser={user!}
+          currentUser={user}
           createReservation={createReservation}
           deleteReservation={deleteReservation}
           isLoading={creating || deleting}

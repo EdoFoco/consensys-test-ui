@@ -1,4 +1,4 @@
-# Consensys Test UI
+# TS Example UI
 
 ## Intro
 
